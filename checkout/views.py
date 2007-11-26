@@ -1,7 +1,7 @@
 # encoder=utf-8
 from django.shortcuts import get_object_or_404, redirect
 from django.forms import modelformset_factory
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import RedirectView, TemplateView, ListView, DetailView, View
 from catalog.models import Product
 from .models import CartItem, Order
 from django.core.urlresolvers import reverse
@@ -59,6 +59,21 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
 			order = Order.objects.create_order(user=request.user, cart_items=cart_items)
 		else:
 			return redirect('checkout:cart_item')
-		return super(CheckoutView, self).get(request, *args, **kwargs)
+		response = super(CheckoutView, self).get(request, *args, **kwargs)
+		response.context_data['order'] = order
+		return response
 		
 checkout = CheckoutView.as_view()
+
+class OrderListView(LoginRequiredMixin, ListView):
+	template_name = 'checkout/order_list.html'
+	paginate_by = 10
+	def get_queryset(self):
+		return Order.objects.filter(user=self.request.user)
+order_list = OrderListView.as_view()
+
+class OrderDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'checkout/order_detail.html'
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+order_detail = OrderDetailView.as_view()

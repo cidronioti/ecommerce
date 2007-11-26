@@ -5,42 +5,24 @@
 
 {% block container %}
 	<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<h2>Minha Conta</h2>
-						<div class="panel-group category-products" id="accordian"><!--category-productsr-->								
-							
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="{% url 'accounts:update_user' %}">Alterar Dados</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="{% url 'accounts:update_password' %}">Alterar Senha</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Meus Pedidos</a></h4>
-								</div>
-							</div>
-						</div><!--/category-products-->
-					</div>
-				</div>
-				
-				<div class="col-sm-9 padding-right">
-					<div class="features_items"><!--features_items-->
-						<h2 class="title text-center">Bem vindo {{ user }}</h2>
-						{% block accounts_container %}
-						
-						{% endblock %}
-					</div><!--features_items-->
-					
-				</div>
-			</div>
-		</div>
+		<ol class="breadcrumb">
+  <li><a href="{% url 'accounts:index' %}">Início</a></li>
+  <li class="active">Minha Conta</li>
+</ol>
+<div class="row">
+    <div class="col-md-4">
+        <div class="list-group">
+          <a href="{% url 'accounts:index' %}" class="list-group-item active">Minha Conta</a>
+          <a href="{% url 'accounts:update_user' %}" class="list-group-item">Alterar Dados</a>
+          <a href="{% url 'accounts:update_password' %}" class="list-group-item">Alterar Senha</a>
+          <a href="{% url 'checkout:order_list' %}" class="list-group-item">Meus Pedidos</a>
+        </div>
+    </div>
+    <div class="col-md-8">
+        {% block accounts_container %}
+            <h2>Bem vindo {{ user }}</h2>
+        {% endblock %}
+    </div>
+</div>
 	</section>
  {% endblock %}

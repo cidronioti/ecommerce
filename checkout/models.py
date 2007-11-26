@@ -1,6 +1,7 @@
 #coding=utf-8
 from django.db import models
 from django.conf import settings
+from catalog.models import Product
 
 class CartItemManager(models.Manager):
 	def add_item(self, cart_key, product):
@@ -65,6 +66,13 @@ class Order(models.Model):
 	def __str__(self):
 		return 'Pedido #{}'.format(self.pk)
 
+	def products(self):
+		products_ids=self.items.values_list('product')
+		return Product.objects.filter(pk__in=products_ids)
+	def total(self):
+		aggregate_queryset=self.items.aggregate(total=models.Sum(models.F('price') * models.F('quantity'), ouput_field=models.DecimalField))
+		return aggregate_queryset['total']
+    
 class OrderItem(models.Model):
 	order = models.ForeignKey(Order, verbose_name='Pedido', related_name='items')
 	product = models.ForeignKey('catalog.Product', verbose_name='Produto')
