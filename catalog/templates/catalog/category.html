@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load pagination %}
+
+{% block title %}
+	{{ current_cetegory }} | {{block.super}}
+{% endblock %}
+
+{% block container %}
+	<div class="col-sm-9 padding-right">
+					<div class="features_items"><!--features_items-->
+						<h2 class="title text-center">{{ current_category }}</h2>
+						{% for product in products %}
+							{% include "catalog/_product.html" %}
+						{% endfor %}
+						
+						{% pagination request paginator page_obj %}
+
+				</div><!--features_items-->
+	</div>
+{% endblock %}

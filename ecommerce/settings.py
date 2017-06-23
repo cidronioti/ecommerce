@@ -39,7 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #plugin
+    'widget_tweaks',
+    #app
+    'accounts',
     'core',
+    'catalog',
+    'checkout',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +71,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # app
+                'catalog.context_processors.categories',
             ],
         },
     },
@@ -125,11 +133,26 @@ STATIC_URL = '/static/'
 
 #configurações pro hiroku
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES[default].update(db_from_env)
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES[default].update(db_from_env)
 
-SECURE_PROX_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_PROX_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = os.path.join('PROJECT_ROOT', 'staticfiles')
+#STATIC_ROOT = os.path.join('PROJECT_ROOT', 'staticfiles')
+
+#auth
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'index'
+#LOGOUT_URL = ''
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.backends.ModelBackend',
+)
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

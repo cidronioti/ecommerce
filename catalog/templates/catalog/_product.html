@@ -1,0 +1,22 @@
+<div class="col-sm-4">
+	<div class="product-image-wrapper">
+		<div class="single-products">
+			<div class="productinfo text-center">
+				<img src="images/shop/product12.jpg" alt="" />
+				<h2>{{ product.price }}</h2>
+				<p>{{ product }}</p>
+				<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add ao Carrinho</a>
+				</div>
+					<a href="{{ product.get_absolute_url }}">
+					<div class="product-overlay">
+						<div class="overlay-content">
+							<h2>{{ product.price }}</h2>
+							<p>{{ product }}</p>
+							<a href="{% url 'checkout:create_cartitem' product.slug %}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add ao Carrinho</a>
+						</div>
+					</div>
+			</a>
+		</div>
+		
+	</div>
+</div>

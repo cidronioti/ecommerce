@@ -34,18 +34,18 @@
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
 								<li><a href=""><i class="fa fa-phone"></i> 81 9 9602 8794</a></li>
-								<li><a href=""><i class="fa fa-envelope"></i>  cidroniodeveloper@gmail.com</a></li>
+								<li><a href=""><i class="fa fa-envelope"></i>  {{ user.email }}</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-facebook"></i></a></li>
-								<li><a href=""><i class="fa fa-twitter"></i></a></li>
-								<li><a href=""><i class="fa fa-linkedin"></i></a></li>
-								<li><a href=""><i class="fa fa-dribbble"></i></a></li>
-								<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+								{% if user.is_authenticated %}
+									<li> <a href=""><i class="fa fa-user"></i>Olá, {{ user }}</a></li>
+								{% else %}
+									<li> <a href=""><i class="fa fa-user"></i>Olá</a></li>
+								{% endif %}								
 							</ul>
 						</div>
 					</div>
@@ -65,11 +65,16 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-user"></i> Conta</a></li>
+								<li><a href="{% url 'accounts:index' %}"><i class="fa fa-user"></i> Conta</a></li>
 								
 								<li><a href="{% url 'checkout' %}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="{% url 'chart' %}"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
-								<li><a href="{% url 'login' %}"><i class="fa fa-lock"></i> Login</a></li>
+								<li><a href="{% url 'checkout:cart_item' %}"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+								{% if user.is_authenticated %}
+									<li><a href="{% url 'logout' %}"><i class="fa fa-lock"></i>Sair</a></li>
+								{% else %}
+									<li><a href="{% url 'login' %}"><i class="fa fa-lock"></i> Login</a></li>
+								{% endif %}
+								
 							</ul>
 						</div>
 					</div>
@@ -92,16 +97,14 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{% url 'index' %}">Home</a></li>
-								<li class="dropdown"><a href="#" class="active">Shop<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="#" class="active">Categorias<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="{% url 'products' %}" class="active">Products</a></li>
-										<li><a href="{% url 'product_detail' %}">Product Details</a></li> 
-										<li><a href="{% url 'checkout' %}">Checkout</a></li> 
-										<li><a href="{% url 'chart' %}">Carrinho</a></li> 
-										<li><a href="{% url 'login' %}">Login</a></li> 
+                                    	{% for category in categories %}
+                                        	<li><a href="{{ category.get_absolute_url }}" class="active">{{category}}</a></li>
+                                        {% endfor %}										
                                     </ul>
                                 </li> 								 
-								<li><a href="404.html">404</a></li>
+								<li><a href="{% url 'catalog:products' %}">Todos os produtos</a></li>
 								<li><a href="{% url 'contact' %}">Contato</a></li>
 							</ul>
 						</div>

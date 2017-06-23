@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %} Login | E-Shopper {% endblock %}
+
+{% load widget_tweaks %}
+
+{% block container %}
+	<section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">Home</a></li>
+				  <li class="active">Meu Carrinho</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+			<form action="" method="post">
+				{% csrf_token %}
+				{{ formset.management_form }}
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description"></td>
+							<td class="price">Preço</td>
+							<td class="quantity">Quantidade</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for form in formset %}
+
+							<tr>
+								<td class="cart_product">
+									<a href=""><img src="images/cart/one.png" alt=""></a>
+								</td>
+								<td class="cart_description">
+									<h4><a href="">{{form.instance.product}}</a></h4>
+									<p>{{form.instance.product.pk}}</p>
+								</td>
+								<td class="cart_price">
+									<p>R${{form.instance.price|floatformat:"2"}}</p>
+								</td>
+								<td class="cart_quantity">
+									<div class="cart_quantity_button">
+										{% render_field form.quantity class='form-control' %}
+									</div>
+								</td>
+								<td class="cart_total">
+									<p class="cart_total_price">R$59,00</p>
+								</td>
+								<td class="cart_delete">
+									<button value="on" type="submit" name="{{ form.DELETE.html_name }}" class="btn btn-danger btn-sm">Remover</button>
+									{{ form.id }}
+								</td>
+							</tr>
+						{% endfor %}
+						
+					</tbody>
+				</table>
+				<div class="col-sm-6">
+					<div class="total_area">
+							<button type="submit" class="btn btn-default">Atualizar</button>
+					</div>
+				</div>
+			</form>
+			</div>
+		</div>
+	</section> <!--/#cart_items-->
+
+	<section id="do_action">
+		<div class="container">
+			
+			<div class="row">
+				
+				<div class="col-sm-6">
+					<div class="total_area">
+							<a class="btn btn-default update" href="">Atualizar</a>
+							<a class="btn btn-default check_out" href="{% url 'checkout:checkout' %}">Finalizar Compra</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section><!--/#do_action-->
+
+{% endblock %}

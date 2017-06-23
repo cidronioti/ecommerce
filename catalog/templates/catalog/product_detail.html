@@ -26,17 +26,19 @@
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
 								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
-								<h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+								<h2>{{ product }}</h2>
 								<p>Web ID: 1089772</p>
 								<img src="images/product-details/rating.png" alt="" />
 								<span>
-									<span>R$59,00</span>
+									<span>R$ {{ product.price }}</span>
 									<label>Quantidade:</label>
 									<input type="text" value="3" />
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										Add
-									</button>
+									<a href="{% url 'checkout:create_cartitem' product.slug %}">
+										<button type="button" class="btn btn-fefault cart">
+											<i class="fa fa-shopping-cart"></i>
+											Add
+										</button>
+									</a>
 								</span>
 								<p><b>Disponibilidade:</b> Em Estoque</p>
 								<p><b>Condição:</b> Novo</p>
