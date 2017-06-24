@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     #plugin
     'widget_tweaks',
+    'easy_thumbnails',
     #app
     'accounts',
     'core',
@@ -154,6 +155,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'accounts.backends.ModelBackend',
 )
+
+#library easy-thumbnails
+THUMBNAIL_ALIASES = {
+    '': {
+        'product_image': {'size': (50, 50), 'crop': True},
+    },
+}
 
 try:
     from .local_settings import *
