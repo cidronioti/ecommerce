@@ -33,7 +33,9 @@
 
 							<tr>
 								<td class="cart_product">
-									<a href=""><img src="images/cart/one.png" alt=""></a>
+									{% if form.instance.product.image %}
+										<a href=""><img src="{{ form.instance.product.image.url }}" alt=""></a>
+									{% endif %}
 								</td>
 								<td class="cart_description">
 									<h4><a href="">{{form.instance.product}}</a></h4>
