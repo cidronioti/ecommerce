@@ -7,28 +7,21 @@
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="view-product">
-								<img src="images/product-details/1.jpg" alt="" />
+								{% if product.image %}
+										<img src="{{product.image.url }}" class="newarrival" alt="">
+									{% endif %}
+								
 								<h3>ZOOM</h3>
 							</div>
-							<div id="similar-product" class="carousel slide" data-ride="carousel">
-
-								  <!-- Controls -->
-								  <a class="left item-control" href="#similar-product" data-slide="prev">
-									<i class="fa fa-angle-left"></i>
-								  </a>
-								  <a class="right item-control" href="#similar-product" data-slide="next">
-									<i class="fa fa-angle-right"></i>
-								  </a>
-							</div>
-
 						</div>
 
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
-								<img src="images/product-details/new.jpg" class="newarrival" alt="" />
+								
+								<!--<img src="images/product-details/new.jpg" class="newarrival" alt="" />-->
 								<h2>{{ product }}</h2>
-								<p>Web ID: 1089772</p>
-								<img src="images/product-details/rating.png" alt="" />
+								<p>Web ID: {{ product.pk }}</p>
+								<!--<img src="images/product-details/rating.png" alt="" />-->
 								<span>
 									<span>R$ {{ product.price }}</span>
 									<label>Quantidade:</label>
@@ -43,7 +36,7 @@
 								<p><b>Disponibilidade:</b> Em Estoque</p>
 								<p><b>Condição:</b> Novo</p>
 								<p><b>Marca:</b> E-SHOPPER</p>
-								<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
+								<!--<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>-->
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->

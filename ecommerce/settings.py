@@ -136,6 +136,11 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#email
+EMAIL_HOST = ''
+
+
 #configurações pro hiroku
 
 #db_from_env = dj_database_url.config(conn_max_age=500)
@@ -163,6 +168,11 @@ THUMBNAIL_ALIASES = {
         'product_image': {'size': (50, 50), 'crop': True},
     },
 }
+
+
+PAGSEGURO_TOKEN = '9A379C55EBCD48299F0EB1376C459E21'
+PAGSEGURO_EMAIL = 'cidronioti@gmail.com'
+PAGSEGURO_SANDBOX = True
 
 try:
     from .local_settings import *

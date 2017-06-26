@@ -20,11 +20,18 @@ class IndexView(TemplateView):
 index = IndexView.as_view()
 
 def contact(request):
-	form = ContactForm()
-	context = {
-		'form': form
-	}
-	return render(request, 'contact.html', context)
+    success = False
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        form.send_mail()
+        success = True
+    elif request.method == 'POST':
+        messages.error(request, 'Formulário inválido')
+    context = {
+        'form': form,
+        'success': success
+    }
+    return render(request, 'contact.html', context)
 
 #def product_detail(request):
 #	return render(request, 'product_detail.html')
