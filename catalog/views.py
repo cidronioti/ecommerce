@@ -1,13 +1,23 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.db import models
+from django.db import models
+from django.views.decorators.cache import cache_page
 
 from .models import Product, Category
 
 class ProductListView(generic.ListView): 
-	model = Product
+
 	template_name = 'catalog/products.html'
 	context_object_name = 'products'
 	paginate_by = 9
+
+	def get_queryset(self):
+		queryset = Product.objects.all()
+		q = self.request.GET.get('q', '')
+		if q:
+			queryset = queryset.filter(models.Q(name__icontains=q) | models.Q(category__name__icontains=q))
+		return queryset
 
 products = ProductListView.as_view()
 
