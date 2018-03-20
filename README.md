@@ -1,2 +1,2 @@
 # ecommerce
-ecommer-sendo-desenvouvido-em-django
+ecommer-sendo-desenvolvido-em-django
